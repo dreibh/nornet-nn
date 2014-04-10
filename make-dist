@@ -1,0 +1,28 @@
+#!/bin/bash -e
+
+. ./rpm.conf
+
+
+PACKAGE=`grep "^Name:" rpm/*.spec | head -n1 | sed -e "s/Name://g" -e "s/[ \t]*//g"`
+UPSTREAM_VERSION=`grep "^Version:" rpm/*.spec | head -n1 | sed -e "s/Version://g" -e "s/[ \t]*//g"`
+
+echo -e "\x1b[34m###########################################\x1b[0m"
+echo -e "\x1b[34mPACKAGE:            $PACKAGE\x1b[0m"
+echo -e "\x1b[34mUPSTREAM_VERSION:   $UPSTREAM_VERSION\x1b[0m"
+echo -e "\x1b[34m###########################################\x1b[0m"
+
+
+if [ -e $PACKAGE-$UPSTREAM_VERSION ] ; then
+   rm -rf $PACKAGE-$UPSTREAM_VERSION
+fi
+mkdir $PACKAGE-$UPSTREAM_VERSION || exit 1
+
+
+# ---------------------------------------------------------
+mkdir $PACKAGE-$UPSTREAM_VERSION/src
+# cp NEWS README BUGS COPYING ChangeLog *.lsm $PACKAGE-$UPSTREAM_VERSION
+cp src/System-Info src/System-Info.1 $PACKAGE-$UPSTREAM_VERSION
+# ---------------------------------------------------------
+
+tar czvf $PACKAGE-$UPSTREAM_VERSION.tar.gz $PACKAGE-$UPSTREAM_VERSION
+rm -rf $PACKAGE-$UPSTREAM_VERSION
