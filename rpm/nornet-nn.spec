@@ -1,15 +1,16 @@
-Name: nornet-nn
-Version: 0.1.0
-Release: 1
-Summary: NorNet Node and Slice Tools
-Group: Applications/Internet
-License: GPLv3
+Name:          nornet-nn
+Version:       0.1.0
+Release:       1
+Summary:       NorNet Node and Slice Tools
+Group:         Applications/Internet
+License:       GPLv3
+Source:        %{name}-%{version}.tar.gz
 
-AutoReqProv: on
-BuildArch: noarch
-BuildRoot: %{_tmppath}/%{name}-%{version}-build
+AutoReqProv:   on
+BuildArch:     noarch
+BuildRoot:     %{_tmppath}/%{name}-%{version}-build
 BuildRequires: python
-Requires: python
+Requires:      python
 
 %description
 NorNet Node and Slice Tools contain some tools for NorNet LXC-based research nodes, to be used by nodes and slices.
