@@ -23,6 +23,7 @@ mkdir $PACKAGE-$UPSTREAM_VERSION/src
 # cp NEWS README BUGS COPYING ChangeLog *.lsm $PACKAGE-$UPSTREAM_VERSION
 cp configure $PACKAGE-$UPSTREAM_VERSION
 mkdir -p $PACKAGE-$UPSTREAM_VERSION/src
+cp configure $PACKAGE-$UPSTREAM_VERSION
 cp src/systeminfo.sh src/systeminfo.csh $PACKAGE-$UPSTREAM_VERSION/src
 cp src/System-Info  src/System-Info.1   $PACKAGE-$UPSTREAM_VERSION/src
 # ---------------------------------------------------------
