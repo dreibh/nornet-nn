@@ -26,7 +26,7 @@ NorNet Node and Slice Tools contain some tools for NorNet LXC-based research nod
 %install
 [ "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf "$RPM_BUILD_ROOT"
 mkdir -p "$RPM_BUILD_ROOT"/usr/bin/
-mkdir -p "$RPM_BUILD_ROOT"/usr/etc/profile.d/
+mkdir -p "$RPM_BUILD_ROOT"/etc/profile.d/
 mkdir -p "$RPM_BUILD_ROOT"/usr/share/man/man1/
 cp src/systeminfo.sh src/systeminfo.csh "$RPM_BUILD_ROOT"/etc/profile.d/
 cp src/System-Info "$RPM_BUILD_ROOT"/usr/bin/
@@ -37,6 +37,8 @@ cp src/System-Info.1 "$RPM_BUILD_ROOT"/usr/share/man/man1/
 
 %files
 %{_bindir}/System-Info
+/etc/profile.d/systeminfo.sh
+/etc/profile.d/systeminfo.csh
 %{_mandir}/man1/System-Info.1.gz
 
 %doc
