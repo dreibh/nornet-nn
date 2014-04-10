@@ -9,8 +9,6 @@ Source:        %{name}-%{version}.tar.gz
 AutoReqProv:   on
 BuildArch:     noarch
 BuildRoot:     %{_tmppath}/%{name}-%{version}-build
-BuildRequires: python
-Requires:      python
 
 %description
 NorNet Node and Slice Tools contain some tools for NorNet LXC-based research nodes, to be used by nodes and slices.
