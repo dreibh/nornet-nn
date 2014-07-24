@@ -1,5 +1,5 @@
 Name:          nornet-nn
-Version:       0.1.0
+Version:       0.2.0
 Release:       1
 Summary:       NorNet Node and Slice Tools
 Group:         Applications/Internet
