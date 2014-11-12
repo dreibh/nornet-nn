@@ -1,0 +1,39 @@
+#!/bin/bash
+#
+# Print system information
+# Copyright (C) 2014 by Thomas Dreibholz
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Contact: dreibh@simula.no
+
+
+if [ "$1" == "start" ] ; then
+   if [ -e /vservers ] ; then   # We are (probably) on a research node's root context
+      kernel=`uname -r`
+      tcpModules=`find /lib/modules/${kernel}/kernel/net/ipv4/ -name "tcp_*.ko" | xargs -n1 basename | sed -e "s/\.ko$//g"`
+      echo -en "Loading TCP modules: "
+      for tcpModule in $tcpModules ; do
+         echo -en "$tcpModule "
+         modprobe $tcpModule >/dev/null 2>&1
+      done
+      echo ""
+   fi
+
+elif [ "$1" == "stop" ] ; then
+   echo "STOP"
+
+else
+   echo >&2 "Usage: $0 start|stop"
+fi
