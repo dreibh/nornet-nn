@@ -1,0 +1,15 @@
+#!/bin/sh
+
+[Unit]
+Description=NorNet Research Node Initializations
+Before=network.target
+After=syslog.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/nornet-research-node-initializer start
+ExecStop=/usr/bin/nornet-research-node-initializer stop
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
