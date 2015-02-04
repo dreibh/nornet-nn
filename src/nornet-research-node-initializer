@@ -19,20 +19,31 @@
 # Contact: dreibh@simula.no
 
 
+tryToLoadModules()
+{
+   echo -en "Loading $1 modules: "
+   pattern="$2"
+   shift ; shift
+   while [ $# -gt 0 ] ; do
+      directory="$1"
+      shift
+      if [ -e "$directory" ] ; then
+         modules="`find "$directory" -name "$pattern" | xargs -n1 basename | sed -e "s/\.ko$//g" | sort`"
+         for module in $modules ; do
+            echo -en "$module "
+            modprobe $module >/dev/null 2>&1
+         done
+      fi
+   done
+   echo ""
+}
+
+
 if [ "$1" == "start" ] ; then
    if [ -e /vservers ] ; then   # We are (probably) on a research node's root context
       kernel=`uname -r`
-      tcpModulesKern="`find /lib/modules/${kernel}/kernel/net/ipv4/ -name "tcp_*.ko" | xargs -n1 basename | sed -e "s/\.ko$//g"`"
-      tcpModulesExtra=""
-      if [ -e /lib/modules/${kernel}/extra/net/ipv4/ ] ; then
-         tcpModulesExtra="`find /lib/modules/${kernel}/extra/net/ipv4/ -name "tcp_*.ko" | xargs -n1 basename | sed -e "s/\.ko$//g"`"
-      fi
-      echo -en "Loading TCP modules: "
-      for tcpModule in $tcpModulesKern $tcpModulesExtra ; do
-         echo -en "$tcpModule "
-         modprobe $tcpModule >/dev/null 2>&1
-      done
-      echo ""
+      tryToLoadModules "TCP"   "tcp_*.ko"   /lib/modules/${kernel}/kernel/net/ipv4/   /lib/modules/${kernel}/extra/net/ipv4/
+      tryToLoadModules "MPTCP" "mptcp_*.ko" /lib/modules/${kernel}/kernel/mptcp/ipv4/ /lib/modules/${kernel}/extra/mptcp/ipv4/
    fi
 
 elif [ "$1" == "stop" ] ; then
