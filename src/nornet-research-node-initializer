@@ -28,7 +28,7 @@ tryToLoadModules()
       directory="$1"
       shift
       if [ -e "$directory" ] ; then
-         modules="`find "$directory" -name "$pattern" | xargs -n1 basename | sed -e "s/\.ko$//g" | sort`"
+         modules="`find "$directory" -name "$pattern" | xargs --no-run-if-empty -n1 basename | sed -e "s/\.ko$//g" | sort`"
          for module in $modules ; do
             echo -en "$module "
             modprobe $module >/dev/null 2>&1
@@ -44,6 +44,8 @@ if [ "$1" == "start" ] ; then
       kernel=`uname -r`
       tryToLoadModules "TCP"   "tcp_*.ko"   /lib/modules/${kernel}/kernel/net/ipv4/   /lib/modules/${kernel}/extra/net/ipv4/
       tryToLoadModules "MPTCP" "mptcp_*.ko" /lib/modules/${kernel}/kernel/mptcp/ipv4/ /lib/modules/${kernel}/extra/mptcp/ipv4/
+      tryToLoadModules "SCTP"  "sctp*.ko"   /lib/modules/${kernel}/kernel/net/sctp/   /lib/modules/${kernel}/extra/net/sctp/
+      tryToLoadModules "DCCP"  "dccp*.ko"   /lib/modules/${kernel}/kernel/net/dccp/   /lib/modules/${kernel}/extra/net/dccp/
    fi
 
 elif [ "$1" == "stop" ] ; then
