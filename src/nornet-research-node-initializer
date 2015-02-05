@@ -43,7 +43,7 @@ if [ "$1" == "start" ] ; then
    if [ -e /vservers ] ; then   # We are (probably) on a research node's root context
       kernel=`uname -r`
       tryToLoadModules "TCP"   "tcp_*.ko"   /lib/modules/${kernel}/kernel/net/ipv4/   /lib/modules/${kernel}/extra/net/ipv4/
-      tryToLoadModules "MPTCP" "mptcp_*.ko" /lib/modules/${kernel}/kernel/mptcp/ipv4/ /lib/modules/${kernel}/extra/mptcp/ipv4/
+      tryToLoadModules "MPTCP" "mptcp_*.ko" /lib/modules/${kernel}/kernel/net/mptcp/  /lib/modules/${kernel}/extra/net/mptcp/
       tryToLoadModules "SCTP"  "sctp*.ko"   /lib/modules/${kernel}/kernel/net/sctp/   /lib/modules/${kernel}/extra/net/sctp/
       tryToLoadModules "DCCP"  "dccp*.ko"   /lib/modules/${kernel}/kernel/net/dccp/   /lib/modules/${kernel}/extra/net/dccp/
    fi
