@@ -46,6 +46,9 @@ if [ "$1" == "start" ] ; then
       tryToLoadModules "MPTCP" "mptcp_*.ko" /lib/modules/${kernel}/kernel/net/mptcp/  /lib/modules/${kernel}/extra/net/mptcp/
       tryToLoadModules "SCTP"  "sctp*.ko"   /lib/modules/${kernel}/kernel/net/sctp/   /lib/modules/${kernel}/extra/net/sctp/
       tryToLoadModules "DCCP"  "dccp*.ko"   /lib/modules/${kernel}/kernel/net/dccp/   /lib/modules/${kernel}/extra/net/dccp/
+      echo -en "Allowed TCP CCs: "
+      availableCCs=`sysctl net.ipv4.tcp_available_congestion_control | sed -e "s/.*= //g"`
+      sysctl -w net.ipv4.tcp_allowed_congestion_control="$availableCCs"
    fi
 
 elif [ "$1" == "stop" ] ; then
