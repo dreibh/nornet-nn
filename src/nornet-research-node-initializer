@@ -49,6 +49,10 @@ if [ "$1" == "start" ] ; then
       echo -en "Allowed TCP CCs: "
       availableCCs=`sysctl net.ipv4.tcp_available_congestion_control | sed -e "s/.*= //g"`
       sysctl -w net.ipv4.tcp_allowed_congestion_control="$availableCCs"
+
+      # ----- MPTCP settings ------------------------------------------------
+      sysctl -w net.mptcp.mptcp_enabled=1
+      sysctl -w net.mptcp.mptcp_path_manager=fullmesh
    fi
 
 elif [ "$1" == "stop" ] ; then
