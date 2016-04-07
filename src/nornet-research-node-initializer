@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Research Node Initializer
-# Copyright (C) 2014-2015 by Thomas Dreibholz
+# Copyright (C) 2014-2016 by Thomas Dreibholz
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ tryToLoadModules()
       directory="$1"
       shift
       if [ -e "$directory" ] ; then
-         modules="`find "$directory" -name "$pattern" | xargs --no-run-if-empty -n1 basename | sed -e "s/\.ko$//g" | sort`"
+         modules="`find "$directory" -name "$pattern" | xargs --no-run-if-empty -n1 basename | sed -e "s/\.ko.*$//g" | sort`"
          for module in $modules ; do
             echo -en "$module "
             modprobe $module >/dev/null 2>&1
@@ -42,10 +42,10 @@ tryToLoadModules()
 if [ "$1" == "start" ] ; then
    if [ -e /vservers ] ; then   # We are (probably) on a research node's root context
       kernel=`uname -r`
-      tryToLoadModules "TCP"   "tcp_*.ko"   /lib/modules/${kernel}/kernel/net/ipv4/   /lib/modules/${kernel}/extra/net/ipv4/
-      tryToLoadModules "MPTCP" "mptcp_*.ko" /lib/modules/${kernel}/kernel/net/mptcp/  /lib/modules/${kernel}/extra/net/mptcp/
-      tryToLoadModules "SCTP"  "sctp*.ko"   /lib/modules/${kernel}/kernel/net/sctp/   /lib/modules/${kernel}/extra/net/sctp/
-      tryToLoadModules "DCCP"  "dccp*.ko"   /lib/modules/${kernel}/kernel/net/dccp/   /lib/modules/${kernel}/extra/net/dccp/
+      tryToLoadModules "TCP"   "tcp_*.ko*"   /lib/modules/${kernel}/kernel/net/ipv4/   /lib/modules/${kernel}/extra/net/ipv4/
+      tryToLoadModules "MPTCP" "mptcp_*.ko*" /lib/modules/${kernel}/kernel/net/mptcp/  /lib/modules/${kernel}/extra/net/mptcp/
+      tryToLoadModules "SCTP"  "sctp*.ko*"   /lib/modules/${kernel}/kernel/net/sctp/   /lib/modules/${kernel}/extra/net/sctp/
+      tryToLoadModules "DCCP"  "dccp*.ko*"   /lib/modules/${kernel}/kernel/net/dccp/   /lib/modules/${kernel}/extra/net/dccp/
       echo -en "Allowed TCP CCs: "
       availableCCs=`sysctl net.ipv4.tcp_available_congestion_control | sed -e "s/.*= //g"`
       sysctl -w net.ipv4.tcp_allowed_congestion_control="$availableCCs"
