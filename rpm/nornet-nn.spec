@@ -38,8 +38,8 @@ cp src/nornet-research-slice.service     "$RPM_BUILD_ROOT"/usr/lib/systemd/syste
 %post
 systemctl enable nornet-research-node.service   || true
 systemctl enable nornet-research-slice.service  || true
-systemctl restart nornet-research-node.service  || true
-systemctl restart nornet-research-slice.service || true
+systemctl restart nornet-research-node.service  || /usr/bin/nornet-research-node-initializer start
+systemctl restart nornet-research-slice.service || /usr/bin/nornet-research-slice-initializer start
 
 %prerun
 if [ $1 -eq 0 ] ; then
