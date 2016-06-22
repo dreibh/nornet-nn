@@ -24,10 +24,12 @@ mkdir $PACKAGE-$UPSTREAM_VERSION/src
 cp configure $PACKAGE-$UPSTREAM_VERSION
 mkdir -p $PACKAGE-$UPSTREAM_VERSION/src
 cp configure $PACKAGE-$UPSTREAM_VERSION
-cp src/systeminfo.sh src/systeminfo.csh $PACKAGE-$UPSTREAM_VERSION/src
-cp src/System-Info  src/System-Info.1   $PACKAGE-$UPSTREAM_VERSION/src
-cp src/nornet-research-node-initializer $PACKAGE-$UPSTREAM_VERSION/src
-cp src/nornet-research-node.service     $PACKAGE-$UPSTREAM_VERSION/src
+cp src/systeminfo.sh src/systeminfo.csh  $PACKAGE-$UPSTREAM_VERSION/src
+cp src/System-Info  src/System-Info.1    $PACKAGE-$UPSTREAM_VERSION/src
+cp src/nornet-research-node-initializer  $PACKAGE-$UPSTREAM_VERSION/src
+cp src/nornet-research-node.service      $PACKAGE-$UPSTREAM_VERSION/src
+cp src/nornet-research-slice-initializer $PACKAGE-$UPSTREAM_VERSION/src
+cp src/nornet-research-slice.service     $PACKAGE-$UPSTREAM_VERSION/src
 # ---------------------------------------------------------
 
 tar czvf $PACKAGE-$UPSTREAM_VERSION.tar.gz $PACKAGE-$UPSTREAM_VERSION

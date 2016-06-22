@@ -19,6 +19,7 @@
 # Contact: dreibh@simula.no
 
 
+# ###### Configure modules ##################################################
 tryToLoadModules()
 {
    echo -en "Loading $1 modules: "
@@ -88,7 +89,7 @@ if [ "$1" == "start" ] ; then
    fi
 
 elif [ "$1" == "stop" ] ; then
-   echo "STOP"
+   true
 
 else
    echo >&2 "Usage: $0 start|stop"

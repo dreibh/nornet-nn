@@ -1,5 +1,5 @@
 Name:          nornet-nn
-Version:       0.4.7
+Version:       0.4.8~rc1
 Release:       1
 Summary:       NorNet Node and Slice Tools
 Group:         Applications/Internet
@@ -27,19 +27,24 @@ mkdir -p "$RPM_BUILD_ROOT"/usr/bin/
 mkdir -p "$RPM_BUILD_ROOT"/etc/profile.d/
 mkdir -p "$RPM_BUILD_ROOT"/usr/share/man/man1/
 mkdir -p "$RPM_BUILD_ROOT"/usr/lib/systemd/system/
-cp src/systeminfo.sh src/systeminfo.csh "$RPM_BUILD_ROOT"/etc/profile.d/
-cp src/System-Info                      "$RPM_BUILD_ROOT"/usr/bin/
-cp src/System-Info.1                    "$RPM_BUILD_ROOT"/usr/share/man/man1/
-cp src/nornet-research-node-initializer "$RPM_BUILD_ROOT"/usr/bin/
-cp src/nornet-research-node.service     "$RPM_BUILD_ROOT"/usr/lib/systemd/system/
+cp src/systeminfo.sh src/systeminfo.csh  "$RPM_BUILD_ROOT"/etc/profile.d/
+cp src/System-Info                       "$RPM_BUILD_ROOT"/usr/bin/
+cp src/System-Info.1                     "$RPM_BUILD_ROOT"/usr/share/man/man1/
+cp src/nornet-research-node-initializer  "$RPM_BUILD_ROOT"/usr/bin/
+cp src/nornet-research-node.service      "$RPM_BUILD_ROOT"/usr/lib/systemd/system/
+cp src/nornet-research-slice-initializer "$RPM_BUILD_ROOT"/usr/bin/
+cp src/nornet-research-slice.service     "$RPM_BUILD_ROOT"/usr/lib/systemd/system/
 
 %post
 systemctl enable nornet-research-node.service
+systemctl enable nornet-research-slice.service
 systemctl restart nornet-research-node.service
+systemctl restart nornet-research-slice.service
 
 %prerun
 if [ $1 -eq 0 ] ; then
    systemctl disable nornet-research-node.service
+   systemctl disable nornet-research-slice.service
 fi
 
 %clean
@@ -48,7 +53,9 @@ fi
 %files
 %{_bindir}/System-Info
 %{_bindir}/nornet-research-node-initializer
+%{_bindir}/nornet-research-slice-initializer
 /usr/lib/systemd/system/nornet-research-node.service
+/usr/lib/systemd/system/nornet-research-slice.service
 /etc/profile.d/systeminfo.sh
 /etc/profile.d/systeminfo.csh
 %{_mandir}/man1/System-Info.1.gz

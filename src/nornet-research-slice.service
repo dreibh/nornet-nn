@@ -1,0 +1,15 @@
+#!/bin/sh
+
+[Unit]
+Description=NorNet Research Slice Initializations
+Before=network.target
+After=syslog.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/nornet-research-slice-initializer start
+ExecStop=/usr/bin/nornet-research-slice-initializer stop
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
