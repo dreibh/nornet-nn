@@ -824,8 +824,8 @@ uZwLcGpfMfH2X5RVAKDCa7d6Hwhoa7DrPaTAP/965IPybA==
 =8iRG
 -----END PGP PUBLIC KEY BLOCK-----
 EOF
-      rpm --import /etc/pki/rpm-gpg/nornet.key
    fi
+   rpm --import /etc/pki/rpm-gpg/nornet.key
 
    if [ ! -e /etc/yum.repos.d/nornet.repo ] ; then
       echo "Setting up NorNet Repository."
