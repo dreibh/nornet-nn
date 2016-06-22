@@ -48,9 +48,9 @@ function proxy_setup ()
 # ###### Configure repository ###############################################
 function repository_setup ()
 {
-   if [ ! -e /etc/yum.repos.d/nornet.key ] ; then
+   if [ ! -e /etc/pki/rpm-gpg/nornet.key ] ; then
       echo "Setting up NorNet Repository Key."
-      cat >/etc/yum.repos.d/nornet.key <<EOF
+      cat >/etc/pki/rpm-gpg/nornet.key <<EOF
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v1.4.14 (GNU/Linux)
 
@@ -824,6 +824,7 @@ uZwLcGpfMfH2X5RVAKDCa7d6Hwhoa7DrPaTAP/965IPybA==
 =8iRG
 -----END PGP PUBLIC KEY BLOCK-----
 EOF
+      rpm --import /etc/pki/rpm-gpg/nornet.key
    fi
 
    if [ ! -e /etc/yum.repos.d/nornet.repo ] ; then
@@ -835,7 +836,7 @@ name=NorNet Applications
 baseurl=http://packages.nntb.no/nornet-applications/fedora/\$releasever/\$basearch
 enabled=1
 gpgcheck=1
-gpgkey=file:///etc/yum.repos.d/nornet.key
+gpgkey=file:///etc/pki/rpm-gpg/nornet.key
 EOF
    fi
 
