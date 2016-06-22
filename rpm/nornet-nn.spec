@@ -1,5 +1,5 @@
 Name:          nornet-nn
-Version:       0.4.8~rc1
+Version:       0.4.8~rc2
 Release:       1
 Summary:       NorNet Node and Slice Tools
 Group:         Applications/Internet
@@ -36,10 +36,10 @@ cp src/nornet-research-slice-initializer "$RPM_BUILD_ROOT"/usr/bin/
 cp src/nornet-research-slice.service     "$RPM_BUILD_ROOT"/usr/lib/systemd/system/
 
 %post
-systemctl enable nornet-research-node.service
-systemctl enable nornet-research-slice.service
-systemctl restart nornet-research-node.service
-systemctl restart nornet-research-slice.service
+systemctl enable nornet-research-node.service   || true
+systemctl enable nornet-research-slice.service  || true
+systemctl restart nornet-research-node.service  || true
+systemctl restart nornet-research-slice.service || true
 
 %prerun
 if [ $1 -eq 0 ] ; then
